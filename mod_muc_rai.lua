@@ -186,6 +186,11 @@ local function subscribe_all_rooms(user_jid)
 	return rooms_with_activity;
 end
 
+module:hook("muc-occupant-joined", function(event)
+	local room_jid, user_jid = event.room.jid, event.stanza.attr.from;
+	unsubscribe_room(user_jid, room_jid);
+end);
+
 module:hook("presence/host", function (event)
 	local origin, stanza = event.origin, event.stanza;
 	local user_jid = stanza.attr.from;
