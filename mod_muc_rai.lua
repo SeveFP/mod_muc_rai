@@ -188,16 +188,16 @@ end
 
 module:hook("muc-occupant-joined", function(event)
 	local room_jid, user_jid = event.room.jid, event.stanza.attr.from;
-	local _, err = unsubscribe_room(user_jid, room_jid);
-	if not err then
+	local ok, err = unsubscribe_room(user_jid, room_jid);
+	if ok then
 		module:log("debug", "Unsubscribed " .. user_jid .. " from " .. room_jid .. " Reason: muc-occupant-joined")
 	end
 end);
 
 module:hook("muc-occupant-left", function(event)
 	local room_jid, user_jid = event.room.jid, event.stanza.attr.from;
-	local _, err = subscribe_room(user_jid, room_jid);
-	if not err then
+	local ok, err = subscribe_room(user_jid, room_jid);
+	if ok then
 		module:log("debug", "Subscribed " .. user_jid .. " to " .. room_jid .. " Reason: muc-occupant-left")
 	end
 end);
