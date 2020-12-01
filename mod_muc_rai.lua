@@ -195,8 +195,8 @@ module:hook("muc-occupant-joined", function(event)
 end);
 
 module:hook("muc-occupant-left", function(event)
-	local room_jid, user_jid = event.room.jid, event.occupant.bare_jid;
-	local _, err = subscribe_room(user_jid, room_jid);
+	local room_jid, user_jid = event.room.jid, event.stanza.attr.from;
+	local test, err = subscribe_room(user_jid, room_jid);
 	if not err then
 		module:log("debug", "Subscribed " .. user_jid .. " to " .. room_jid .. " Reason: muc-occupant-left")
 	end
